@@ -2,25 +2,26 @@ defmodule AntColonySupervisor do
   use Supervisor
 
   def start_link(opts) do
-    Supervisor.start_link(__MODULE__, :ok, opts)
+    Supervisor.start_link(__MODULE__, {:ok, opts[:graph], opts[:n]}, opts)
   end
 
-  def init(:ok) do
+  def init({:ok, graph, n}) do
     IO.puts("booting processes")
-    # TODO : Get graph from file
-    graph = [
-      [1,2,1],
-      [2,1,2],
-      [3,2,1]
-    ]
-    pheromons = [
-      [1/3,1/3,1/3],
-      [1/3,1/3,1/3],
-      [1/3,1/3,1/3],
-    ]
+
+    pheromons = SymetricGraph.new(n, 1/(n - 1))
+
+    # n = 3
+    # graph = for a <- 0..(n - 1), b <- 0..(n - 1), a <= b, into: SymetricGraph.new do
+    #   {{a, b}, 1}
+    # end
+    pheromons = for a <- 0..(n - 1), b <- 0..(n - 1), a <= b, into: SymetricGraph.new do
+      {{a, b}, 1/3}
+    end
+
     initial_state = %{
       graph: graph,
-      pheromons: pheromons
+      pheromons: pheromons,
+      n: n
     }
     children = [
       {PheromonTrails, name: PheromonTrails, state: initial_state},
