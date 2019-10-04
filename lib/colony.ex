@@ -6,16 +6,14 @@ defmodule Colony do
   end
 
   def init({:ok, state}) do
-    children = [
-      %{
-        id: 1,
-        start: {Ant, :start_link, [[name: String.to_atom("ant_1"), state: state]]}
-      },
-      %{
-        id: 2,
-        start: {Ant, :start_link, [[name: String.to_atom("ant_2"), state: state]]}
-      },
-    ]
+    children = Range.new(1, state.nb_ants)
+      |> Enum.map(fn(ant_id) -> 
+        %{
+        id: ant_id,
+        start: {Ant, :start_link, [[name: String.to_atom("ant_#{ant_id}"), state: state]]}
+      } 
+    end)
+
     Supervisor.init(children, strategy: :one_for_one)
   end
 end

@@ -6,22 +6,13 @@ defmodule AntColonySupervisor do
   end
 
   def init({:ok, graph, n}) do
-    IO.puts("booting processes")
-
     pheromons = SymetricGraph.new(n, 1/(n - 1))
-
-    # n = 3
-    # graph = for a <- 0..(n - 1), b <- 0..(n - 1), a <= b, into: SymetricGraph.new do
-    #   {{a, b}, 1}
-    # end
-    pheromons = for a <- 0..(n - 1), b <- 0..(n - 1), a <= b, into: SymetricGraph.new do
-      {{a, b}, 1/3}
-    end
 
     initial_state = %{
       graph: graph,
       pheromons: pheromons,
-      n: n
+      n: n,
+      nb_ants: 5
     }
     children = [
       {PheromonTrails, name: PheromonTrails, state: initial_state},
