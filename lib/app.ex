@@ -2,7 +2,7 @@ defmodule App do
   use Application
 
   def start(_type, _args) do
-    {graph, n} = read_instance("berlin52")
+    {graph, n} = read_instance(System.get_env("INSTANCE") || "berlin52")
     AntColonySupervisor.start_link(name: AntColonySupervisor, graph: graph, n: n)
   end
 

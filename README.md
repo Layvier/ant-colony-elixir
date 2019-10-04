@@ -1,21 +1,17 @@
-# AntColony
+# Ant Colony Optimization Algorithm
 
-**TODO: Add description**
+I built this project in order to learn elixir. It uses different aspect of the language and leverages Erlang's OTP for parallelism. 
+I implemented the Ant System version of the ACO meta-heuristic (http://mat.uab.cat/~alseda/MasterOpt/ACO_Intro.pdf).
 
-## Installation
+To start the project, run 
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `ant_colony` to your list of dependencies in `mix.exs`:
+`mix compile && mix run --no-halt`
 
-```elixir
-def deps do
-  [
-    {:ant_colony, "~> 0.1.0"}
-  ]
-end
-```
+or
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/ant_colony](https://hexdocs.pm/ant_colony).
+`iex -S mix`
 
+The default instance used is Berlin52.
+You can select another instance using the **INSTANCE** environment variable:
+
+`INSTANCE=a280 iex -S mix`
