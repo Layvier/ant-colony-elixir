@@ -1,4 +1,4 @@
-defmodule Colony do
+defmodule AntColony.Colony do
   use Supervisor
 
   def start_link(opts) do
@@ -10,7 +10,7 @@ defmodule Colony do
       |> Enum.map(fn(ant_id) -> 
         %{
         id: ant_id,
-        start: {Ant, :start_link, [[name: String.to_atom("ant_#{ant_id}"), state: state]]}
+        start: {AntColony.Ant, :start_link, [state, [name: String.to_atom("ant_#{ant_id}")]]}
       } 
     end)
 

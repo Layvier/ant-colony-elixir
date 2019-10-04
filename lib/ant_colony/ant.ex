@@ -1,22 +1,20 @@
-defmodule Ant do
+defmodule AntColony.Ant do
   use GenServer
 
-  def start_link(opts) do
+  def start_link(state, opts \\ []) do
     IO.puts("Starting " <> Atom.to_string(opts[:name]))
-    GenServer.start_link(__MODULE__, {:ok, opts[:state]}, opts)
+    GenServer.start_link(__MODULE__, state, opts)
   end
 
-  def init({:ok, state}) do
-    state = Map.put(state, :path, [0])
-    state = Map.put(state, :path_cost, 0)
-    
-    {:ok, walk(state)}
+  def init(state) do
+    initial_state = Map.merge(state, %{ path: [0], path_cost: 0 })
+    {:ok, walk(initial_state)}
   end
 
   def walk(state) do
     new_state = rec_walk_next_node(state, Enum.to_list(1..(state[:n] - 1)))
     
-    PheromonTrails.send_ant_path(self(), new_state[:path], new_state[:path_cost])
+    AntColony.PheromonTrails.send_ant_path(self(), new_state[:path], new_state[:path_cost])
     new_state
   end
 

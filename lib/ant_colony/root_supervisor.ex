@@ -1,4 +1,4 @@
-defmodule AntColonySupervisor do
+defmodule AntColony.RootSupervisor do
   use Supervisor
 
   def start_link(opts) do
@@ -15,8 +15,8 @@ defmodule AntColonySupervisor do
       nb_ants: 5
     }
     children = [
-      {PheromonTrails, name: PheromonTrails, state: initial_state},
-      {Colony, name: Colony, state: initial_state},
+      {AntColony.PheromonTrails, name: AntColony.PheromonTrails, state: initial_state},
+      {AntColony.Colony, name: AntColony.Colony, state: initial_state},
     ]
     Supervisor.init(children, strategy: :one_for_one)
   end

@@ -1,9 +1,9 @@
-defmodule App do
+defmodule AntColony.Application do
   use Application
 
   def start(_type, _args) do
     {graph, n} = read_instance(System.get_env("INSTANCE") || "berlin52")
-    AntColonySupervisor.start_link(name: AntColonySupervisor, graph: graph, n: n)
+    AntColony.RootSupervisor.start_link(name: AntColony.RootSupervisor, graph: graph, n: n)
   end
 
   def read_instance(filename) do

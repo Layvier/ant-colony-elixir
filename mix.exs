@@ -15,7 +15,7 @@ defmodule AntColony.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {App, []}
+      mod: {AntColony.Application, []}
     ]
   end
 

@@ -1,4 +1,4 @@
-defmodule PheromonTrails do
+defmodule AntColony.PheromonTrails do
   use GenServer
 
   def start_link(opts) do
