@@ -51,7 +51,7 @@ defmodule Ant do
     buckets = Enum.reduce(next_nodes_probabilities_unnormalized, [], fn (p, acc) -> acc ++ [(List.last(acc) || 0) + p / normalizer] end)
     # pick a number between 0 and 1
     random_value = :rand.uniform()
-    {_, _, found} = Enum.reduce(buckets, {0, 0, nil}, fn (next, {ind, prev, found}) -> if (prev <= random_value and random_value < next), do: {ind + 1, next, ind}, else: {ind + 1, next, found} end)#if (prev <= random_value and random_value <= next), do: {ind++, next, ind}, else: {ind++, next, found} end)
+    {_, _, found} = Enum.reduce(buckets, {0, 0, nil}, fn (next, {ind, prev, found}) -> if (prev <= random_value and random_value < next), do: {ind + 1, next, ind}, else: {ind + 1, next, found} end)
     found
   end
 end
