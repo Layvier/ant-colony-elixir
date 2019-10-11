@@ -13,13 +13,11 @@ defmodule AntColony.Ant do
 
   def walk(state) do
     new_state = rec_walk_next_node(state, Enum.to_list(1..(state[:n] - 1)))
-    # yo
     AntColony.PheromonTrails.send_ant_path(self(), new_state[:path], new_state[:path_cost])
     new_state
   end
 
   def handle_cast({:walk, new_pheromons}, state) do
-    # 3
     new_state = walk(%{state | pheromons: new_pheromons , path_cost: 0 , path: [0]})
     {:noreply, new_state}
   end
@@ -28,15 +26,11 @@ defmodule AntColony.Ant do
     current_node = List.last(state[:path])
     new_node = 0
     new_path = state[:path] ++ [ new_node ]
-    # 4
     new_cost = state[:path_cost] + SymetricGraph.get_value(state[:graph], current_node, new_node)
     %{%{state | path: new_path} | path_cost: new_cost}
   end
 
   def rec_walk_next_node(state, nodes_left) do
-    #conflict
-    #
-    #oh no a conflict !!
     current_node = List.last(state[:path])
     new_node = choose_next_node(SymetricGraph.get_row(state[:pheromons], current_node), SymetricGraph.get_row(state[:graph], current_node), nodes_left)
     

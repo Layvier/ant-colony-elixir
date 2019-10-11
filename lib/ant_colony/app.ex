@@ -15,7 +15,7 @@ defmodule AntColony.Application do
       |> Enum.drop(-1)
       |> Enum.map(&parse_point/1)
 
-    # n = Enum.count(points_coord)
+    n = Enum.count(points_coord)
 
     graph = for a <- 0..(n - 1), b <- 0..(n - 1), a <= b, into: SymetricGraph.new do
       {i_a, j_a} = Enum.at(points_coord, a)
