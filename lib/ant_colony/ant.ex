@@ -13,7 +13,7 @@ defmodule AntColony.Ant do
 
   def walk(state) do
     new_state = rec_walk_next_node(state, Enum.to_list(1..(state[:n] - 1)))
-    
+    # yo
     AntColony.PheromonTrails.send_ant_path(self(), new_state[:path], new_state[:path_cost])
     new_state
   end
