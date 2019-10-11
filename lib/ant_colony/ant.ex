@@ -27,6 +27,7 @@ defmodule AntColony.Ant do
     current_node = List.last(state[:path])
     new_node = 0
     new_path = state[:path] ++ [ new_node ]
+    # 4
     new_cost = state[:path_cost] + SymetricGraph.get_value(state[:graph], current_node, new_node)
     %{%{state | path: new_path} | path_cost: new_cost}
   end
