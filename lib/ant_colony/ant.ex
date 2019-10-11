@@ -19,6 +19,7 @@ defmodule AntColony.Ant do
   end
 
   def handle_cast({:walk, new_pheromons}, state) do
+    # 3
     new_state = walk(%{state | pheromons: new_pheromons , path_cost: 0 , path: [0]})
     {:noreply, new_state}
   end
