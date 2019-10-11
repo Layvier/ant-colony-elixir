@@ -34,6 +34,8 @@ defmodule AntColony.Ant do
   end
 
   def rec_walk_next_node(state, nodes_left) do
+    #conflict
+    #
     #oh no a conflict !!
     current_node = List.last(state[:path])
     new_node = choose_next_node(SymetricGraph.get_row(state[:pheromons], current_node), SymetricGraph.get_row(state[:graph], current_node), nodes_left)
